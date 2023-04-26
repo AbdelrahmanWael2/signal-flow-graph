@@ -13,6 +13,8 @@ public class Signal_flow {
         public Y y; // gain (real)
     }
 
+    private ArrayList<ArrayList<triple<Integer, String, Float>>> graph;
+
     ArrayList<String> forward_paths;
     ArrayList<Float> forward_paths_gains;
 
@@ -41,7 +43,7 @@ public class Signal_flow {
     /*
      * @param gain it is used to store the path in terms of sequence of nodes
      */
-    private void find_forward_paths(ArrayList<ArrayList<triple<Integer, String, Float>>> graph, boolean[] visited,
+    private void find_forward_paths( boolean[] visited,
             int node,
             String gain, float gain_real_num) {
 
@@ -58,7 +60,7 @@ public class Signal_flow {
                 triple<Integer, String, Float> neibour = graph.get(node).get(i);
                 boolean[] new_visited = new boolean[graph.size()];
                 this.arr_copy(visited, new_visited);
-                this.find_forward_paths(graph, new_visited, neibour.x, gain + " " + neibour.x,
+                this.find_forward_paths(new_visited, neibour.x, gain + " " + neibour.x,
                         gain_real_num * neibour.z);
             }
 
@@ -67,17 +69,18 @@ public class Signal_flow {
     }
 
     public void start_finding_forward_paths(ArrayList<ArrayList<triple<Integer, String, Float>>> graph) {
+        this.graph = graph;
         boolean[] visited = new boolean[graph.size()];
         set_false(visited);
         visited[0] = true;
         // the first node must be node 0.
         this.final_node = graph.size() - 1;
 
-        this.find_forward_paths(graph, visited, 0, "0", (float) 1);
+        this.find_forward_paths(visited, 0, "0", (float) 1);
 
     }
 
-    private void find_all_loops(ArrayList<ArrayList<triple<Integer, String, Float>>> graph, boolean[] visited,
+    private void find_all_loops(boolean[] visited,
             int node, String gain, float gain_real_num, int target_node, boolean Is_second_time_to_visit_target) {
 
         visited[node] = true;
@@ -100,7 +103,7 @@ public class Signal_flow {
                     triple<Integer, String, Float> neibour = graph.get(node).get(i);
                     boolean[] new_visited = new boolean[graph.size()];
                     this.arr_copy(visited, new_visited);
-                    this.find_all_loops(graph, new_visited, next_node, gain + " " + next_node, gain_real_num * neibour.z, target_node, true);
+                    this.find_all_loops(new_visited, next_node, gain + " " + next_node, gain_real_num * neibour.z, target_node, true);
                 }
             }
         }
@@ -108,12 +111,15 @@ public class Signal_flow {
     }
 
     public void start_finding_all_loops(ArrayList<ArrayList<triple<Integer, String, Float>>> graph) {
+        this.graph = graph;
         boolean[] visited = new boolean[graph.size()];
         set_false(visited);
         for (int i = 0; i < graph.size(); i++) {
-            this.find_all_loops(graph, visited, i, "" + i, (float) 1, i, false);
+            this.find_all_loops(visited, i, "" + i, (float) 1, i, false);
         }
     }
+
+    
     void print_test_loops() {
         System.out.printf("NUmber of  loops : %d \n loops : \n", loops.size());
         for (pair<String, Float> l : loops) {
