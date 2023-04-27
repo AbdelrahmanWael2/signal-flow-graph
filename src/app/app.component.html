@@ -1,0 +1,242 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="row" >
+                <div class="col rounded-5 text-center text-white fs-2" id="title">
+                    signal flow graph
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1 rounded-5" id="tools">
+                    <!-- node creation -->
+                    <div class="row mx-3 text-center">
+                        <button class="btn btn-transparent " id="leftButtonA" (click)="createNewNode()">
+                            <i class="fa fa-dot-circle-o fs-1 text-white"></i>
+                        </button>
+                    </div>
+
+                    <!-- edge creation -->
+                    <div class="row mx-3 my-5 text-center">
+                        <button class="btn btn-transparent " id="leftButtonB" data-bs-toggle="modal" data-bs-target="#linkDirection" data-bs-backdrop="static">
+                            <i class="fa fa-long-arrow-right fs-1 text-white"></i>
+                        </button>
+                    </div>
+
+                    <!-- result -->
+                    <div class="row mx-3 my-5 text-center">
+                        <button class="btn btn-transparent " id="leftButtonC"  (click)="getResult()" data-bs-toggle="modal" data-bs-target="#results" data-bs-backdrop="static">
+                            <i class="fa fa-bar-chart fs-1 text-white"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-11">
+                    <div id="paper"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- link direction -->
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="linkDirection" role="dialog" data-backdrop="false" data-keyboard="false">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <!-- header -->
+                <div class="modal-header">
+                    <h5 class="modal-title " id="exampleModalLabel" style="margin-left: 25%; font-size: 30px">
+                        <i class="fa fa-arrows-alt mx-1 mt-3 mb-2"></i>
+                        link direction
+                    </h5>
+                </div>
+                <!-- body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row-2 fs-3">
+                                <div class="form-group ">
+                                    <label class="mb-3" for="example-input1">the source node:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           style="height: 50px;
+                                                  width: 80%;
+                                                  margin-left: 10%;"
+                                           id="example-input1"
+                                           placeholder="source node id..." #Sid (blur)="source = Sid.value">
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <br>
+                            <div class="row-2 fs-3">
+                                <div class="form-group ">
+                                    <label class="mb-3" for="example-input2">the destination node:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           style="height: 50px;
+                                                  width: 80%;
+                                                  margin-left: 10%;"
+                                           id="example-input2"
+                                           placeholder="destination node id..." #Did (blur)="destination = Did.value"> <!-- -->
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <br>
+                            <div class="row-2 fs-3">
+                                <div class="form-group ">
+                                    <label class="mb-3" for="example-input3">the transfer function:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           style="height: 50px;
+                                                  width: 80%;
+                                                  margin-left: 10%;"
+                                           id="example-input3"
+                                           placeholder="transfer function value..." #TF (blur)="transferFunction = TF.value"> <!-- -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" (click)="createNewLink()" > <!-- data-bs-dismiss="modal" -->
+                        connect
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- results window -->
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="results" role="dialog" data-backdrop="false" data-keyboard="false">
+        <div class="modal-dialog modal-custom-size">
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <!-- header -->
+                <div class="modal-header">
+                    <h1 style="margin-left: 25%;">
+                        signal flow graph results
+                    </h1>
+                </div>
+
+                <!-- body -->
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col">
+                            <!-- forward paths -->
+                            <div class="row-2 fs-2">
+                                <button class="btn btn-primary rounded-5 fs-3">
+                                    forward paths with its gain
+                                </button>
+
+                                <div class="col-5"  style="display: inline">
+                                    <ul >
+                                        <li *ngFor="let pair of forwardPathPair" class="mx-5">
+                                            {{ pair[0] }} <i class="fa fa-long-arrow-right fs-1 "></i> with gain <i class="fa fa-long-arrow-right fs-1"></i> {{ pair[1] }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <br><hr><br>
+
+                            <!-- loops -->
+                            <div class="row-2 fs-3">
+                                <button class="btn btn-primary rounded-5 fs-3">
+                                    loops with its gain <i class="fa fa-circle-o-notch"></i>
+                                </button>
+
+                                <div class="col-5"  style="display: inline">
+                                    <ul >
+                                        <li *ngFor="let pair of loopPair" class="mx-5">
+                                            {{ pair[0] }} <i class="fa fa-long-arrow-right fs-1 "></i> with gain <i class="fa fa-long-arrow-right fs-1"></i> {{ pair[1] }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <br><hr><br>
+
+                            <div class="row-2 fs-3">
+                                <button class="btn btn-primary rounded-5 fs-3">
+                                    non touching loops <i class="fa fa-circle-o-notch"></i>
+                                </button>
+
+                                <div class="col-5"  style="display: inline">
+                                    <ul >
+                                        <li *ngFor="let collection of nonTouchingLoops" class="mx-5">
+                                            {{ collection }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <br><hr><br>
+
+                            <div class="row-2 fs-3">
+                                <button class="btn btn-primary rounded-5 fs-3">
+                                    big delta <i class="fa fa-caret-up"></i>
+                                </button>
+
+                                <div class="col-5"  style="display: inline">
+                                    <ul >
+                                        <li class="mx-5">
+                                            {{ bigDelta }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <br><hr><br>
+
+                            <div class="row-2 fs-3">
+                                <button class="btn btn-primary rounded-5 fs-3">
+                                    delta of i <i class="fa fa-caret-up"></i>
+                                </button>
+
+                                <div class="col-5"  style="display: inline">
+                                    <ul >
+                                        <li *ngFor="let DI of delta_i; let i = index" class="mx-5">
+                                            {{ [i] }} - {{ DI }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <br><hr><br>
+
+                            <div class="row-2 fs-3">
+                                <button class="btn btn-primary rounded-5 fs-3">
+                                    C(S) / R(S) = over all transfer function <i class="fa bar-chart"></i>
+                                </button>
+
+                                <div class="col-5"  style="display: inline">
+                                    <ul >
+                                        <li class="mx-5">
+                                            {{ output_over_input }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" (click)="createNewLink()" > <!-- data-bs-dismiss="modal" -->
+                        connect
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

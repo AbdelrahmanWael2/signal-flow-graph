@@ -1,0 +1,53 @@
+.container{
+    width: 1920px;
+    height: 850px;
+    justify-content: center;
+    align-items:  center;
+    display: flex;
+    position:absolute;
+    top: 0%;
+    left: 10%;
+}
+#title{
+    background: linear-gradient(to bottom right, #cc0c0c, #000000, #9d0505);
+    width: 1550px;
+    height: 60px;
+    margin-bottom: 2%;
+}
+#tools{
+    background: linear-gradient(to bottom right, #cc0c0c, #000000, #9d0505);
+}
+#paper{
+    background: linear-gradient(to bottom right, #575757, #000000, #868686);
+}
+#leftButtonA, #leftButtonB, #leftButtonC{
+    width: 75px;
+    height: 65px;
+    border-radius: 100%;
+    justify-content: center;
+    margin-top: 140%;
+}
+.btn-transparent {
+    background-color: transparent;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+.btn-transparent:hover {
+    border: 2px solid #a1a1a1;
+    box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+.modal-dialog {
+    max-width: 700px;
+    max-height: 500px;
+}
+
+.modal-custom-size {
+    max-width: 900px;
+    width: 90%;
+}
+
+
