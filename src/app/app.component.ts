@@ -3,7 +3,7 @@ import * as jQuery from 'jquery';
 import * as _ from 'lodash';
 import * as $ from 'backbone';
 import * as joint from 'jointjs';
-import {myFactory, result} from "./myFactory";
+import {givens, myFactory, result} from "./myFactory";
 import {BackServiceService} from "./back-service.service";
 import {compilePipeFromMetadata} from "@angular/compiler";
 
@@ -20,6 +20,11 @@ export class AppComponent implements OnInit{
     destination: any;
     transferFunction: any;
     myResult: any;
+
+    inputNode: any;
+    outputNode: any;
+
+
 
     constructor(private myService: BackServiceService) {
     }
@@ -57,10 +62,23 @@ export class AppComponent implements OnInit{
     bigDelta: any;
     delta_i: any;
     output_over_input:any;
+    myGivens: any;
     // end temp variables
+
+    prepareForResults() {
+        // this.startEndNodesIndicator = true;
+        let myGivens: givens = {
+            listOfLists: this.factory.getGraph(),
+            startNode: this.inputNode,
+            endNode: this.outputNode
+        };
+        this.myGivens = myGivens;
+    }
     getResult(): any {
         // send graph to calculate.
-        this.myService.request(this.factory.getGraph()).subscribe((responseObj: result) => {
+        // console.log(this.startEndNodesIndicator)
+        console.log(this.myGivens)
+        this.myService.request(this.myGivens).subscribe((responseObj: result) => {
             this.myResult = responseObj;
             // forward path works....
             this.forwardPathPair = responseObj.forwardPaths.map((val, idx) => [val, responseObj.forwardPaths[idx]]);
@@ -92,4 +110,5 @@ export class AppComponent implements OnInit{
         });
 
     }
+
 }

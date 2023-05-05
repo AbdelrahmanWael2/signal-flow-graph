@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Edge, result} from "./myFactory";
+import {Edge, givens, result} from "./myFactory";
 
 @Injectable({
     providedIn: 'root'
@@ -9,8 +9,8 @@ import {Edge, result} from "./myFactory";
 export class BackServiceService {
 
     constructor(private http: HttpClient) { }
-    request(listOfLists: Edge[][]): Observable<result> {
-        return this.http.post<result>("http://localhost:8080/request", listOfLists);
+    request(myGivens: givens): Observable<result> {
+        return this.http.post<result>("http://localhost:8080/request", myGivens);
     }
 
     receiveResult(impression: string): Observable<result>{

@@ -5,7 +5,11 @@ export interface Edge{
     y: string;
     gain: number;
 }
-
+export interface givens{
+    listOfLists: Edge[][];
+    startNode: number;
+    endNode: number;
+}
 export interface result{
     forwardPaths: string[];
     forwardPathGains: number[];
@@ -26,40 +30,40 @@ export class myFactory {
 
     public usedGraph(): Edge[][]{
         let wg: Edge[][] = [];
-        // wg =
-        // [
-        //     [
-        //         {destination: 1,y: "",gain: 2}
-        //     ],
-        //     [
-        //         {destination: 2,y: "",gain: 3},
-        //         {destination: 3,y: "",gain: 5},
-        //         {destination: 6,y: "",gain: 7}
-        //     ],
-        //     [
-        //         {destination: 1,y: "",gain: 47},
-        //         {destination: 3,y: "",gain: 53}
-        //     ],
-        //     [
-        //         {destination: 2,y: "",gain: 11},
-        //         {destination: 4,y: "",gain: 13}
-        //     ],
-        //     [
-        //         {destination: 3,y: "",gain: 17},
-        //         {destination: 5,y: "",gain: 19}
-        //     ],
-        //     [
-        //         {destination: 4,y: "",gain: 23},
-        //         {destination: 6,y: "",gain: 29}
-        //     ],
-        //     [
-        //         {destination: 4,y: "",gain: 31},
-        //         {destination: 5,y: "",gain: 37},
-        //         {destination: 6,y: "",gain: 41},
-        //         {destination: 7,y: "",gain: 43}
-        //     ],
-        //     []
-        // ]
+        wg =
+        [
+            [
+                {destination: 1,y: "",gain: 2}
+            ],
+            [
+                {destination: 2,y: "",gain: 3},
+                {destination: 3,y: "",gain: 5},
+                {destination: 6,y: "",gain: 7}
+            ],
+            [
+                {destination: 1,y: "",gain: 47},
+                {destination: 3,y: "",gain: 53}
+            ],
+            [
+                {destination: 2,y: "",gain: 11},
+                {destination: 4,y: "",gain: 13}
+            ],
+            [
+                {destination: 3,y: "",gain: 17},
+                {destination: 5,y: "",gain: 19}
+            ],
+            [
+                {destination: 4,y: "",gain: 23},
+                {destination: 6,y: "",gain: 29}
+            ],
+            [
+                {destination: 4,y: "",gain: 31},
+                {destination: 5,y: "",gain: 37},
+                {destination: 6,y: "",gain: 41},
+                {destination: 7,y: "",gain: 43}
+            ],
+            []
+        ]
         // wg =
         // [
         //     [

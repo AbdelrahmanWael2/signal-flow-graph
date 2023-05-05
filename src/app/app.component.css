@@ -20,12 +20,12 @@
 #paper{
     background: linear-gradient(to bottom right, #575757, #000000, #868686);
 }
-#leftButtonA, #leftButtonB, #leftButtonC{
+#leftButtonA, #leftButtonB, #leftButtonC, #leftButtonD{
     width: 75px;
     height: 65px;
     border-radius: 100%;
     justify-content: center;
-    margin-top: 140%;
+    margin-top: 90%;
 }
 .btn-transparent {
     background-color: transparent;

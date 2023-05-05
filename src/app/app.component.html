@@ -7,28 +7,35 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-1 rounded-5" id="tools">
-                    <!-- node creation -->
-                    <div class="row mx-3 text-center">
-                        <button class="btn btn-transparent " id="leftButtonA" (click)="createNewNode()">
-                            <i class="fa fa-dot-circle-o fs-1 text-white"></i>
-                        </button>
-                    </div>
+               <div class="col-1 rounded-5" id="tools">
+<!--                    &lt;!&ndash; node creation &ndash;&gt;-->
+                   <div class="row mx-3 text-center">
+                       <button class="btn btn-transparent " id="leftButtonA" (click)="createNewNode()">
+                           <i class="fa fa-dot-circle-o fs-1 text-white"></i>
+                       </button>
+                   </div>
 
-                    <!-- edge creation -->
-                    <div class="row mx-3 my-5 text-center">
-                        <button class="btn btn-transparent " id="leftButtonB" data-bs-toggle="modal" data-bs-target="#linkDirection" data-bs-backdrop="static">
-                            <i class="fa fa-long-arrow-right fs-1 text-white"></i>
-                        </button>
-                    </div>
+<!--                    &lt;!&ndash; edge creation &ndash;&gt;-->
+                   <div class="row mx-3 my-5 text-center">
+                       <button class="btn btn-transparent " id="leftButtonB" data-bs-toggle="modal" data-bs-target="#linkDirection" data-bs-backdrop="static">
+                           <i class="fa fa-long-arrow-right fs-1 text-white"></i>
+                       </button>
+                   </div>
 
-                    <!-- result -->
-                    <div class="row mx-3 my-5 text-center">
-                        <button class="btn btn-transparent " id="leftButtonC"  (click)="getResult()" data-bs-toggle="modal" data-bs-target="#results" data-bs-backdrop="static">
+                   <!-- &lt;!&ndash; start-end &ndash;&gt; -->
+                   <div class="row mx-3 my-5 text-center">
+                       <button class="btn btn-transparent " id="leftButtonC" data-bs-toggle="modal" data-bs-target="#start_end" data-bs-backdrop="static">
+                          <i class="fa fa-location-arrow fs-1 text-white"></i> <i class="fa fa-circle fs-4 text-white"></i>
+                       </button>
+                   </div>
+
+                   <!-- &lt;!&ndash; result &ndash;&gt; -->
+                   <div class="row mx-3 my-5 text-center">
+                       <button class="btn btn-transparent " id="leftButtonD"  (click)="getResult()" data-bs-toggle="modal" data-bs-target="#results" data-bs-backdrop="static">
                             <i class="fa fa-bar-chart fs-1 text-white"></i>
-                        </button>
-                    </div>
-                </div>
+                       </button>
+                   </div>
+               </div>
 
                 <div class="col-11">
                     <div id="paper"></div>
@@ -38,6 +45,8 @@
     </div>
 
 </div>
+
+
 <!-- link direction -->
 <div class="container">
     <!-- Modal -->
@@ -111,12 +120,78 @@
     </div>
 </div>
 
+<!-- start end -->
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="start_end" role="dialog" data-backdrop="false" data-keyboard="false">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <!-- header -->
+                <div class="modal-header">
+                    <h1 style="margin-left: 25%;">
+                        <i class="fa fa-star"></i> start and end nodes <i class="fa fa-star"></i>
+                    </h1>
+                </div>
+
+                <!-- body -->
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="row-2 fs-3">
+                                <div class="form-group ">
+                                    <label class="mb-3" for="ST-ID">the input node:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           style="height: 50px;
+                                                  width: 80%;
+                                                  margin-left: 10%;"
+                                           id="ST-ID"
+                                           placeholder="source node id..." #ST_ID (blur)="inputNode = ST_ID.value">
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <br>
+                            <div class="row-2 fs-3">
+                                <div class="form-group ">
+                                    <label class="mb-3" for="END-ID">the output node:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           style="height: 50px;
+                                                  width: 80%;
+                                                  margin-left: 10%;"
+                                           id="END-ID"
+                                           placeholder="destination node id..." #END_ID (blur)="outputNode = END_ID.value"> <!-- -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" (click)="prepareForResults()" data-bs-dismiss="modal"> <!--  -->
+                        get results >>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <!-- results window -->
 <div class="container">
     <!-- Modal -->
     <div class="modal fade" id="results" role="dialog" data-backdrop="false" data-keyboard="false">
         <div class="modal-dialog modal-custom-size">
+
+
             <!-- Modal content-->
             <div class="modal-content">
 
@@ -230,13 +305,19 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <button class="btn btn-primary" (click)="createNewLink()" > <!-- data-bs-dismiss="modal" -->
                         connect
                     </button>
                 </div>
+
             </div>
+
         </div>
+
+
+
     </div>
 </div>
 
