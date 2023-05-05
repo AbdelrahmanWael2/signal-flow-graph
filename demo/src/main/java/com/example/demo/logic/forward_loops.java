@@ -8,8 +8,12 @@ import java.util.ArrayList;
 public class forward_loops {
 
     private ArrayList<ArrayList<triple<Integer, String, Float>>> graph;
+    private int startNode, endNode;
 
     ArrayList<String> forward_paths;
+
+
+
     ArrayList<Float> forward_paths_gains;
 
     ArrayList<pair<String, Float>> loops;
@@ -20,6 +24,12 @@ public class forward_loops {
 
     public void setGraph(ArrayList<ArrayList<triple<Integer, String, Float>>> graph) {
         this.graph = graph;
+    }
+    public void setStartNode(int startNode) {
+        this.startNode = startNode;
+    }
+    public void setEndNode(int endNode) {
+        this.endNode = endNode;
     }
 
     private int final_node;
@@ -73,8 +83,8 @@ public class forward_loops {
         set_false(visited);
         visited[0] = true;
         // the first node must be node 0.
-        this.final_node = graph.size() - 1; // i will send it.
-        this.find_forward_paths(visited, 0, "0", (float) 1);
+        this.final_node = endNode; // i will send it.
+        this.find_forward_paths(visited, startNode, Integer.toString(startNode), (float) 1); // parameters
 
         // return forward paths with its gain.
         pair<ArrayList<String>, ArrayList<Float>> myPair = new pair<>();

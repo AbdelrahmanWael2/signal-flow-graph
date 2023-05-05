@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.Givens;
 import com.example.demo.logic.bigDelta;
 import com.example.demo.logic.editedGraph;
 import com.example.demo.logic.forward_loops;
@@ -11,15 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class connector {
+    Givens myGivens;
     ArrayList<ArrayList<triple<Integer, String, Float>>> graph;
     ArrayList<String> forwardPathsClass;
     ArrayList<Float> forwardPathGainsClass;
     ArrayList<pair<String, Float>> loopsClass;
     float output_over_input = 0;
     result myResult;
-    public connector(ArrayList<ArrayList<triple<Integer, String, Float>>> graph){
-        this.graph = graph;
-
+    public connector(Givens myGivens){
+        this.myGivens = myGivens;
+        this.graph = myGivens.listOfLists;
         centerFunction();
     }
 
@@ -29,6 +31,8 @@ public class connector {
         // generate forward paths and loops
         forward_loops forwardLoopObj = new forward_loops();
         forwardLoopObj.setGraph(graph);
+        forwardLoopObj.setStartNode(myGivens.startNode);
+        forwardLoopObj.setEndNode(myGivens.endNode);
 
         // forward paths
         pair<ArrayList<String>, ArrayList<Float>> tempObj = forwardLoopObj.start_finding_forward_paths();

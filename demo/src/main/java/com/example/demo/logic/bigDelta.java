@@ -58,7 +58,7 @@ public class bigDelta {
                     nonTouchingLoops.add(" L" + i + " L" + j);
                     System.out.print( str + " : true ");
                 } else {
-                    cases.get(2).put(str, false);
+                    cases.get(2).put(str, false); // 0001100
                 }
             }
         }
@@ -91,7 +91,7 @@ public class bigDelta {
 
                 // for combined loop in a combination.
                 float TF_loops = 1;
-                String loopsParticipated = "";
+                String loopsParticipated = "";// 10011
                 for(int k = 0; k < entry.length; k++){
                     char[] child = entry.clone();
                     if( level.get(myEntry) == false )

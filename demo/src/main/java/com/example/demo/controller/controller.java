@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.Givens;
 import com.example.demo.result;
 import com.example.demo.service.connector;
 import com.example.demo.triple;
@@ -21,7 +22,7 @@ public class controller {
     private connector connectorObj;
 
     @PostMapping("/request")
-    public result receiveListOfLists(@RequestBody ArrayList<ArrayList<triple<Integer, String, Float>>> listOfLists) {
+    public result receiveListOfLists(@RequestBody Givens myGivens) {
         //                for(List<triple<Integer, String, Float> > EL: listOfLists){
 //            for(triple<Integer, String, Float> e: EL){
 //                System.out.print("<" + e.destination + " ");
@@ -31,7 +32,10 @@ public class controller {
 //            System.out.println();
 //        }
 //        System.out.println(listOfLists);
-        connectorObj = new connector(listOfLists);
+//        System.out.println(myGivens.listOfLists.size() + " " +myGivens.listOfLists.get(0).size());
+//        System.out.println(myGivens.startNode);
+//        System.out.println(myGivens.endNode);
+        connectorObj = new connector(myGivens);
         return connectorObj.getResult();
     }
 

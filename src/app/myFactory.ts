@@ -30,70 +30,70 @@ export class myFactory {
 
     public usedGraph(): Edge[][]{
         let wg: Edge[][] = [];
-        wg =
-        [
-            [
-                {destination: 1,y: "",gain: 2}
-            ],
-            [
-                {destination: 2,y: "",gain: 3},
-                {destination: 3,y: "",gain: 5},
-                {destination: 6,y: "",gain: 7}
-            ],
-            [
-                {destination: 1,y: "",gain: 47},
-                {destination: 3,y: "",gain: 53}
-            ],
-            [
-                {destination: 2,y: "",gain: 11},
-                {destination: 4,y: "",gain: 13}
-            ],
-            [
-                {destination: 3,y: "",gain: 17},
-                {destination: 5,y: "",gain: 19}
-            ],
-            [
-                {destination: 4,y: "",gain: 23},
-                {destination: 6,y: "",gain: 29}
-            ],
-            [
-                {destination: 4,y: "",gain: 31},
-                {destination: 5,y: "",gain: 37},
-                {destination: 6,y: "",gain: 41},
-                {destination: 7,y: "",gain: 43}
-            ],
-            []
-        ]
         // wg =
         // [
         //     [
-        //         {destination: 1,y: "",gain: 2} // 0
+        //         {destination: 1,y: "",gain: 2}
         //     ],
         //     [
-        //         {destination: 2,y: "",gain: 3} // 1
+        //         {destination: 2,y: "",gain: 3},
+        //         {destination: 3,y: "",gain: 5},
+        //         {destination: 6,y: "",gain: 7}
         //     ],
         //     [
-        //         {destination: 1,y: "",gain: 5}, // 2
-        //         {destination: 3,y: "",gain: 7}
+        //         {destination: 1,y: "",gain: 47},
+        //         {destination: 3,y: "",gain: 53}
         //     ],
         //     [
-        //         {destination: 4,y: "",gain: 31}// 3
+        //         {destination: 2,y: "",gain: 11},
+        //         {destination: 4,y: "",gain: 13}
         //     ],
         //     [
-        //         {destination: 3,y: "",gain: 11}, // 4
-        //         {destination: 7,y: "",gain: 13}
+        //         {destination: 3,y: "",gain: 17},
+        //         {destination: 5,y: "",gain: 19}
         //     ],
         //     [
-        //         {destination: 6,y: "",gain: 19} // 5
+        //         {destination: 4,y: "",gain: 23},
+        //         {destination: 6,y: "",gain: 29}
         //     ],
         //     [
-        //         {destination: 1,y: "",gain: 23}, // 6
-        //         {destination: 5,y: "",gain: 29}
+        //         {destination: 4,y: "",gain: 31},
+        //         {destination: 5,y: "",gain: 37},
+        //         {destination: 6,y: "",gain: 41},
+        //         {destination: 7,y: "",gain: 43}
         //     ],
-        //     [
-        //         {destination: 6,y: "",gain: 17} // 7
-        //     ]
+        //     []
         // ]
+        wg =
+        [
+            [
+                {destination: 1,y: "",gain: 2} // 0
+            ],
+            [
+                {destination: 2,y: "",gain: 3} // 1
+            ],
+            [
+                {destination: 1,y: "",gain: 5}, // 2
+                {destination: 3,y: "",gain: 7}
+            ],
+            [
+                {destination: 4,y: "",gain: 31}// 3
+            ],
+            [
+                {destination: 3,y: "",gain: 11}, // 4
+                {destination: 5,y: "",gain: 13}
+            ],
+            [
+                {destination: 6,y: "",gain: 19} // 5
+            ],
+            [
+                {destination: 7,y: "",gain: 29} // 6
+            ],
+            [
+                {destination: 6,y: "",gain: 23},
+                {destination: 1,y: "",gain: 17} // 7
+            ]
+        ]
         return wg;
     }
 
