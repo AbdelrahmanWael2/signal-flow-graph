@@ -1,6 +1,7 @@
 package com.example.demo.logic;
 
 import com.example.demo.pair;
+import com.example.demo.triple;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,13 +10,17 @@ import java.util.TreeMap;
 import static java.lang.Integer.parseInt;
 
 public class bigDelta {
+
+    ArrayList<ArrayList<triple<Integer, String, Float>>> graph;
     private ArrayList<pair<String, Float>> loops;
     private ArrayList<String> nonTouchingLoops = new ArrayList<>();
     private long[] loopsByBits;
     private float ans = 1;
     private ArrayList<TreeMap<String, Boolean>> cases;
-    public bigDelta(ArrayList<pair<String, Float>> loops){
+    private String expression = "1";
+    public bigDelta(ArrayList<pair<String, Float>> loops, ArrayList<ArrayList<triple<Integer, String, Float>>> graph){
         this.loops = loops;
+        this.graph = graph;
     }
 
     private void updateBits_individualLoops(){
@@ -32,6 +37,7 @@ public class bigDelta {
             for(int i = 0; i < s.length; i++){
                 loopsByBits[loopNum] |= (1L << parseInt(s[i]));
             }
+            expression += " -L" + Integer.toString(loopNum);
             loopNum++;
         }
     }
@@ -55,8 +61,9 @@ public class bigDelta {
                 if( (loopsByBits[i] & loopsByBits[j]) == 0 ){
                     cases.get(2).put(str, true);
                     ans += (loops.get(i).y * loops.get(j).y);
-                    nonTouchingLoops.add(" L" + i + " L" + j);
+                    nonTouchingLoops.add("L" + i + "L" + j);
                     System.out.print( str + " : true ");
+                    expression += " +L" + i + "L" + j;
                 } else {
                     cases.get(2).put(str, false); // 0001100
                 }
@@ -75,6 +82,8 @@ public class bigDelta {
             allCases(currentIndex+1, str + '1', currentOnes + 1);
         }
     }
+
+
 
     public float getDelta(){
         initializeCases();
@@ -101,11 +110,13 @@ public class bigDelta {
                         String strChild = new String(child, 0, loops.size());
                         level.put(myEntry, level.get(myEntry) & cases.get(i-1).get(strChild));
                         TF_loops *= loops.get(k).y;
-                        loopsParticipated += " L" + k;
+                        loopsParticipated += "L" + k;
                     }
                 }
                 if( level.get(myEntry) ){
                     ans += TF_loops * ((i % 2 == 0)? 1: -1);
+                    expression += ((i % 2 == 0)? " +": " -");
+                    expression += loopsParticipated;
                     nonTouchingLoops.add(loopsParticipated);
                     System.out.print( myEntry + " : true " );
                 } else {
@@ -119,6 +130,10 @@ public class bigDelta {
 
     public ArrayList<String> getNonTouchingLoops() {
         return nonTouchingLoops;
+    }
+
+    public String getExpression() {
+        return expression;
     }
 }
 

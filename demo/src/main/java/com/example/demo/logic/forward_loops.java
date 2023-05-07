@@ -17,6 +17,8 @@ public class forward_loops {
     ArrayList<Float> forward_paths_gains;
 
     ArrayList<pair<String, Float>> loops;
+    ArrayList<String> loopsExp;
+    ArrayList<String> forwardExp;
 
     public ArrayList<ArrayList<triple<Integer, String, Float>>> getGraph() {
         return graph;
@@ -38,6 +40,8 @@ public class forward_loops {
         forward_paths = new ArrayList<>();
         forward_paths_gains = new ArrayList<>();
         loops = new ArrayList<>();
+        loopsExp = new ArrayList<>();
+        forwardExp = new ArrayList<>();
     }
 
     private void set_false(boolean[] array) {
@@ -55,7 +59,7 @@ public class forward_loops {
     /*
      * @param gain it is used to store the path in terms of sequence of nodes
      */
-    private void find_forward_paths( boolean[] visited, int node, String gain, float gain_real_num) {
+    private void find_forward_paths( boolean[] visited, int node, String gain,String forwardGainExp, float gain_real_num) {
 
         String g_string = gain;
         float g_real = gain_real_num;
@@ -63,6 +67,7 @@ public class forward_loops {
         if (node == final_node) {
             this.forward_paths.add(g_string);
             this.forward_paths_gains.add(g_real);
+            this.forwardExp.add(forwardGainExp);
         }
         for (int i = 0; i < graph.get(node).size(); i++) {
             int next_node = graph.get(node).get(i).destination;
@@ -70,7 +75,7 @@ public class forward_loops {
                 triple<Integer, String, Float> neibour = graph.get(node).get(i);
                 boolean[] new_visited = new boolean[graph.size()];
                 this.arr_copy(visited, new_visited);
-                this.find_forward_paths(new_visited, neibour.destination, gain + " " + neibour.destination,
+                this.find_forward_paths(new_visited, neibour.destination, gain + " " + neibour.destination, forwardGainExp + "*" +neibour.y,
                         gain_real_num * neibour.gain);
             }
 
@@ -84,7 +89,7 @@ public class forward_loops {
         visited[0] = true;
         // the first node must be node 0.
         this.final_node = endNode; // i will send it.
-        this.find_forward_paths(visited, startNode, Integer.toString(startNode), (float) 1); // parameters
+        this.find_forward_paths(visited, startNode, Integer.toString(startNode), "1", (float) 1); // parameters
 
         // return forward paths with its gain.
         pair<ArrayList<String>, ArrayList<Float>> myPair = new pair<>();
@@ -93,7 +98,15 @@ public class forward_loops {
         return myPair;
     }
 
-    private void find_all_loops(boolean[] visited, int node, String gain, float gain_real_num, int target_node, boolean Is_second_time_to_visit_target) {
+    public ArrayList<String> getLoopsExp() {
+        return loopsExp;
+    }
+
+    public ArrayList<String> getForwardExp() {
+        return forwardExp;
+    }
+
+    private void find_all_loops(boolean[] visited, int node, String gain, String loopGainExp, float gain_real_num, int target_node, boolean Is_second_time_to_visit_target) {
 
         visited[node] = true;
         if (node == target_node && Is_second_time_to_visit_target) {
@@ -101,6 +114,7 @@ public class forward_loops {
             p.x = gain;
             p.y = gain_real_num;
             loops.add(p);
+            loopsExp.add(loopGainExp);
         }
 
         if (node != target_node || (node == target_node && !Is_second_time_to_visit_target)) {
@@ -115,7 +129,7 @@ public class forward_loops {
                     triple<Integer, String, Float> neibour = graph.get(node).get(i);
                     boolean[] new_visited = new boolean[graph.size()];
                     this.arr_copy(visited, new_visited);
-                    this.find_all_loops(new_visited, next_node, gain + " " + next_node, gain_real_num * neibour.gain, target_node, true);
+                    this.find_all_loops(new_visited, next_node, gain + " " + next_node, loopGainExp + "*" + neibour.y, gain_real_num * neibour.gain, target_node, true);
                 }
             }
         }
@@ -126,7 +140,7 @@ public class forward_loops {
         boolean[] visited = new boolean[graph.size()];
         set_false(visited);
         for (int i = 0; i < graph.size(); i++) {
-            this.find_all_loops(visited, i, "" + i, (float) 1, i, false);
+            this.find_all_loops(visited, i, "" + i, "1", (float) 1, i, false);
         }
         return loops;
     }

@@ -62,6 +62,7 @@ export class AppComponent implements OnInit{
     bigDelta: any;
     delta_i: any;
     output_over_input:any;
+    expression: any;
     myGivens: any;
     // end temp variables
 
@@ -98,6 +99,9 @@ export class AppComponent implements OnInit{
             // final value
             this.output_over_input = responseObj.output_over_input;
 
+            // final expression
+            this.expression = responseObj.expression;
+
             console.log(responseObj.forwardPaths);
             console.log(responseObj.forwardPathGains);
             console.log(responseObj.loops);
@@ -106,6 +110,7 @@ export class AppComponent implements OnInit{
             console.log(responseObj.bigDelta);
             console.log(responseObj.delta_i);
             console.log(responseObj.output_over_input);
+            console.log(responseObj.expression);
 
         });
 

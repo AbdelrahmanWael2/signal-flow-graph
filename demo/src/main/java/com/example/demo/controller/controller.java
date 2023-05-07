@@ -23,18 +23,7 @@ public class controller {
 
     @PostMapping("/request")
     public result receiveListOfLists(@RequestBody Givens myGivens) {
-        //                for(List<triple<Integer, String, Float> > EL: listOfLists){
-//            for(triple<Integer, String, Float> e: EL){
-//                System.out.print("<" + e.destination + " ");
-//                System.out.print(e.gain + " ");
-//                System.out.print(e.y + "> ");
-//            }
-//            System.out.println();
-//        }
-//        System.out.println(listOfLists);
-//        System.out.println(myGivens.listOfLists.size() + " " +myGivens.listOfLists.get(0).size());
-//        System.out.println(myGivens.startNode);
-//        System.out.println(myGivens.endNode);
+
         connectorObj = new connector(myGivens);
         return connectorObj.getResult();
     }

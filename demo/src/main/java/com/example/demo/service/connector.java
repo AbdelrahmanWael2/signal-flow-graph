@@ -19,6 +19,7 @@ public class connector {
     ArrayList<pair<String, Float>> loopsClass;
     float output_over_input = 0;
     result myResult;
+    String totalExp;
     public connector(Givens myGivens){
         this.myGivens = myGivens;
         this.graph = myGivens.listOfLists;
@@ -54,10 +55,11 @@ public class connector {
         }
 
         // get delta of equation
-        bigDelta bigDeltaObj = new bigDelta(loops);
+        bigDelta bigDeltaObj = new bigDelta(loops, graph);
         float delta = bigDeltaObj.getDelta();
         myResult.nonTouchingLoops = bigDeltaObj.getNonTouchingLoops();
         myResult.bigDelta = delta;
+        totalExp = " /( " + bigDeltaObj.getExpression() + " )";
 
         // get delta i.
         myResult.delta_i = new ArrayList<>();
@@ -74,15 +76,20 @@ public class connector {
             ArrayList<pair<String, Float>> delta_i_loops = forwardLoopObj_i.start_finding_all_loops();
 
             // get delta i value.
-            bigDelta delta_i_obj = new bigDelta(delta_i_loops);
+            bigDelta delta_i_obj = new bigDelta(delta_i_loops, delta_i_graph);
             float delta_i = delta_i_obj.getDelta();
             myResult.delta_i.add(delta_i);
+
+            String temp = "((" + forwardLoopObj.getForwardExp().get(i) + ") * (Δ"+ i + "))";
+            totalExp = temp + totalExp;
 
             output_over_input += forwardPathGains.get(i) * delta_i;
             // after end the variable will be sigma p_i * delta_i
         }
         output_over_input /= delta;
         myResult.output_over_input = output_over_input;
+        myResult.expression = totalExp;
+        System.out.println(totalExp);
     }
 
 

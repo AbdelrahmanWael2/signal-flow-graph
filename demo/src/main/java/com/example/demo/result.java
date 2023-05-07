@@ -11,4 +11,5 @@ public class result {
     public float bigDelta;
     public ArrayList<Float> delta_i;
     public float output_over_input;
+    public String expression;
 }

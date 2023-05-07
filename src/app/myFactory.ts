@@ -19,6 +19,7 @@ export interface result{
     bigDelta: number;
     delta_i: number[];
     output_over_input: number;
+    expression: any;
 }
 export class myFactory {
     private static lastID: number  = -1;
@@ -67,31 +68,31 @@ export class myFactory {
         wg =
         [
             [
-                {destination: 1,y: "",gain: 2} // 0
+                {destination: 1,y: "1",gain: 2} // 0
             ],
             [
-                {destination: 2,y: "",gain: 3} // 1
+                {destination: 2,y: "1",gain: 3} // 1
             ],
             [
-                {destination: 1,y: "",gain: 5}, // 2
-                {destination: 3,y: "",gain: 7}
+                {destination: 1,y: "1",gain: 5}, // 2
+                {destination: 3,y: "1",gain: 7}
             ],
             [
-                {destination: 4,y: "",gain: 31}// 3
+                {destination: 4,y: "1",gain: 31}// 3
             ],
             [
-                {destination: 3,y: "",gain: 11}, // 4
-                {destination: 5,y: "",gain: 13}
+                {destination: 3,y: "1",gain: 11}, // 4
+                {destination: 5,y: "1",gain: 13}
             ],
             [
-                {destination: 6,y: "",gain: 19} // 5
+                {destination: 6,y: "1",gain: 19} // 5
             ],
             [
-                {destination: 7,y: "",gain: 29} // 6
+                {destination: 7,y: "1",gain: 29} // 6
             ],
             [
-                {destination: 6,y: "",gain: 23},
-                {destination: 1,y: "",gain: 17} // 7
+                {destination: 6,y: "1",gain: 23},
+                {destination: 1,y: "1",gain: 17} // 7
             ]
         ]
         return wg;
@@ -151,10 +152,20 @@ export class myFactory {
             ]
         });
         // add in common list of list
+        let myY, myGain;
+        if (!isNaN(Number(transferFunction))) {
+            // value can be converted to a number
+            myY = myGain = transferFunction;
+        } else {
+            // value cannot be converted to a number
+            myY = transferFunction;
+            myGain = 1;
+        }
+
         let edge: Edge = {
             destination: destination,
-            y: "",
-            gain: transferFunction
+            y: myY,
+            gain: myGain
         }
         myFactory.weightedgraph[source].push(edge);
         return link;
